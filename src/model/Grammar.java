@@ -1,7 +1,7 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.*;
+import java.io.*;
 
 public class Grammar {
 	
@@ -20,7 +20,7 @@ public class Grammar {
 		this.grammar = grammar;
 	}
 	
-	public Grammar(String startingSymbol, String terminals, String variables, TreeMap<String, ArrayList<String>> grammar) {
+	public Grammar(String startingSymbol, String terminals, String variables, String grammar) {
 		super();
 		this.start = startingSymbol;
 		
@@ -32,7 +32,7 @@ public class Grammar {
 		this.variables = new ArrayList<String>();
 		for(int i=0; i<variable.length; i++) this.variables.add(variable[i]);
 		
-		this.grammar = grammar;
+		productions(grammar);
 	}
 	
 	//----------------------------- Getters and Setters -----------------------------
@@ -101,9 +101,30 @@ public class Grammar {
 	public void setGrammar(TreeMap<String, ArrayList<String>> grammar) {
 		this.grammar = grammar;
 	}
+	public void setGrammar(String grammar) {
+		productions(grammar);
+	}
 	
 	//----------------------------- Methods -----------------------------
-	public void productions() {
+	public void productions(String prodsTxt) {
+		
+		Scanner sc = null;
+		try {
+			sc = new Scanner(new File(prodsTxt));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
+		ArrayList<String> prods = new ArrayList<>();
+		
+		while(sc.hasNextLine()) {
+			prods.addAll(Arrays.<String>asList(sc.nextLine().split("\\s")));
+            String left = prods.get(0);
+            prods.remove(0);
+            grammar.put(left, new ArrayList<String>());
+            grammar.get(left).addAll(prods);
+            prods.clear();
+		}
 		
 	}
 	
