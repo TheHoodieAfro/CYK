@@ -157,8 +157,29 @@ public class Grammar {
 		
 	}
 	
+	//TODO
 	public boolean algorithm(String[][] table) {
-		
+		return false;
+	}
+	
+	//TODO
+	public String toString() {
+		return null;
+	}
+	
+	//TODO
+	public String[] combinations() {
+		return null;
+	}
+	
+	//TODO
+	public String[] check() {
+		return null;
+	}
+	
+	//TODO
+	public String word() {
+		return null;
 	}
 	
 }
