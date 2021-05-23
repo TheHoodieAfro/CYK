@@ -32,6 +32,7 @@ public class Grammar {
 		this.variables = new ArrayList<String>();
 		for(int i=0; i<variable.length; i++) this.variables.add(variable[i]);
 		
+		this.grammar = new TreeMap<>();
 		productions(grammar);
 	}
 	
@@ -118,7 +119,9 @@ public class Grammar {
 		ArrayList<String> prods = new ArrayList<>();
 		
 		while(sc.hasNextLine()) {
-			prods.addAll(Arrays.<String>asList(toArray(sc.nextLine())));
+			String s = sc.nextLine();
+			System.out.println(s);
+			prods.addAll(Arrays.<String>asList(toArray(s)));
             String left = prods.get(0);
             prods.remove(0);
             grammar.put(left, new ArrayList<String>());
@@ -264,7 +267,8 @@ public class Grammar {
 	}
 	
 	public String word(String w, int p) {
-		return toArray(w)[p];
+		//return toArray(w)[p];
+		return Character.toString(w.charAt(p));
 	}
 	
 	public String[] toArray(String input) {
