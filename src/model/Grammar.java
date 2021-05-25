@@ -3,15 +3,41 @@ package model;
 import java.util.*;
 import java.io.*;
 
+/**
+ * @author Cristian Sanchez P. - Juan Pablo Herrera
+ * This class models a Grammar
+ */
 public class Grammar {
 	
 	//----------------------------- Atributes -----------------------------
+	/**
+	 * String that represents the starting Symbol
+	 */
 	public String start;
+	
+	/**
+	 * ArrayList  that represents alphabet of terminals
+	 */
 	public ArrayList<String> terminals;
+	
+	/**
+	 * ArrayList  that represents alphabet of variables
+	 */
 	public ArrayList<String> variables;
+	
+	/**
+	 * The grammar represented as a TreeMap of ArrayLists
+	 */
 	public TreeMap<String,ArrayList<String>> grammar;
 	
 	//----------------------------- Constructors -----------------------------
+	/**
+	 * Plain constructor
+	 * @param start
+	 * @param terminals
+	 * @param variables
+	 * @param grammar
+	 */
 	public Grammar(String start, ArrayList<String> terminals, ArrayList<String> variables, TreeMap<String, ArrayList<String>> grammar) {
 		super();
 		this.start = start;
@@ -20,6 +46,13 @@ public class Grammar {
 		this.grammar = grammar;
 	}
 	
+	/**
+	 * Advanced constructor which converts the needed arraylists and treeMap from strings 
+	 * @param startingSymbol
+	 * @param terminals
+	 * @param variables
+	 * @param grammar
+	 */
 	public Grammar(String startingSymbol, String terminals, String variables, String grammar) {
 		super();
 		this.start = startingSymbol;
@@ -107,6 +140,10 @@ public class Grammar {
 	}
 	
 	//----------------------------- Methods -----------------------------
+	/**
+	 * Method that generates the grammar as a tree from the file with the grammar as strings
+	 * @param prodsTxt: Address of the file with the productions
+	 */
 	public void productions(String prodsTxt) {
 		
 		Scanner sc = null;
@@ -120,7 +157,6 @@ public class Grammar {
 		
 		while(sc.hasNextLine()) {
 			String s = sc.nextLine();
-			System.out.println(s);
 			prods.addAll(Arrays.<String>asList(toArray(s)));
             String left = prods.get(0);
             prods.remove(0);
@@ -131,6 +167,11 @@ public class Grammar {
 		
 	}
 	
+	/**
+	 * Initiates the use of the CYK algorithm
+	 * @param w: Word to be checked if the grammar produces
+	 * @return Returns a String saying if the word is generated
+	 */
 	public String CYK(String w) {
 		
 		String[][] table = table(w);
@@ -144,6 +185,11 @@ public class Grammar {
 		
 	}
 	
+	/**
+	 * Generates the table to be used for the algorithm
+	 * @param w: Word to be checked if the grammar produces
+	 * @return Returns the table as a matrix of strings
+	 */
 	public String[][] table(String w) {
 		
 		int l = w.length();
@@ -164,6 +210,12 @@ public class Grammar {
 		
 	}
 	
+	/**
+	 * CYK algorithm
+	 * @param table: Table to be used for the algorithm
+	 * @param w: Word to be checked if the grammar produces
+	 * @return Returns the table with the CYK algorithm applied
+	 */
 	public String[][] algorithm(String[][] table, String w) {
 		
 		for(int i=0; i<table[0].length; i++) {
@@ -223,10 +275,20 @@ public class Grammar {
         return table;
 	}
 	
+	/**
+	 * @param input
+	 * @return String
+	 */
 	public String toString(String[] input) {
 		return Arrays.toString(input).replaceAll("[\\[\\]\\,]", "");
 	}
 	
+	/**
+	 * Returns all posible combinations
+	 * @param a: part 1
+	 * @param b: part 2
+	 * @return Returns all combinations
+	 */
 	public String[] combinations(String[] a, String[] b) {
 		
 		int l = a.length * b.length;
@@ -247,6 +309,11 @@ public class Grammar {
 		return combs;
 	}
 	
+	/**
+	 * Checks if the array check is contained
+	 * @param check: Array to check
+	 * @return
+	 */
 	public String[] check(String[] check) {
 		
 		ArrayList<String> save = new ArrayList<>();
@@ -266,11 +333,21 @@ public class Grammar {
 		return save.toArray(new String[save.size()]);
 	}
 	
+	/** 
+	 * Gets the words symbol in the position p
+	 * @param w: word
+	 * @param p: position
+	 * @return
+	 */
 	public String word(String w, int p) {
 		//return toArray(w)[p];
 		return Character.toString(w.charAt(p));
 	}
 	
+	/** Converts a String into and array
+	 * @param input: input string
+	 * @return String converted into an array
+	 */
 	public String[] toArray(String input) {
 		return input.split("\\s");
 	}

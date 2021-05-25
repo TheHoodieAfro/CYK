@@ -1,5 +1,8 @@
 package ui;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeMap;
@@ -151,6 +154,9 @@ public class ControllerGUI {
 	        
 	      
 	    }
+	    /** Gets the left side of the production
+	     * @return All values from the left side of the production as an ArrayList
+	     */
 	    public static ArrayList<String> getVariables(){
 	    	
 	    	ArrayList<String> Variables =new  ArrayList<String>();
@@ -173,6 +179,9 @@ public class ControllerGUI {
 	    }
 
 	    
+	    /** Gets the Right side of the production
+	     * @return All values from the right side of the production as an ArrayList
+	     */
 	    public static ArrayList<String> getTerminals(){
 
 	    	ArrayList<String> Terminals = new ArrayList<String>();
@@ -186,12 +195,50 @@ public class ControllerGUI {
 	    	
 	    	return Terminals;
 	    }
-	    // ESte es el metodo que puedes utilzar para crear el txt para leerlo asumo que devuelve la direccion del archivo
+
+	    /** Gets the right side and left side of the productions and adds them into a file
+	     * @return File containing the productions of the grammar
+	     */
 	    public  String generateTxtGrammer(){
 	    	
-	    	return "La direccion del archivo";
+	    	ArrayList<String> Terminals = getTerminals();
+	    	
+	    	ArrayList<String> Variables =  getVariables();
+	    	
+	    	File prods = null;
+	    	String s = "";
+	    	
+	    	try {
+	    		boolean c = false;
+	    		int x = 0;
+				while(!c){
+					s = "prods"+ x +".txt";
+					prods = new File(s);
+					c = prods.createNewFile();
+					x++;
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	
+	    	try {
+				FileWriter wr = new FileWriter(s);
+				for(int i=0; i<rows ; i++) {
+					wr.write(Variables.get(i) +" "+ Terminals.get(i) +"\n");
+				}
+				wr.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	
+	    	return prods.getPath();
 	    }
 	    
+	    /** Prints the terminals, works for testing purposes
+	     * @param Terminals
+	     */
 	    public void print (ArrayList<String> Terminals) {
 	    	for (int i = 0; i < Terminals.size(); i++) {
 		           System.out.println(Terminals.get(i));
@@ -200,7 +247,9 @@ public class ControllerGUI {
 	    }
 	    
 	    
-	    // Aqui es donde se creari la gramatica y se comprueba si la cadena es producida por la gramatica
+	/** se creara la gramatica y se comprueba si la cadena es producida por la gramatica
+	 * 
+	 */
 	public void CalculalteGrammer() {
     	ArrayList<String> Terminals = getTerminals();
     	

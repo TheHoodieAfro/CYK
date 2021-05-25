@@ -1,0 +1,30 @@
+Instrucciones de uso CYK
+
+1.) Primero se incertan la cantidad de variables
+en la casilla indicada
+2.) Segundo se oprime el boton Generar Matriz de Entradas 
+para crear una matriz que permite entrar la gramatica
+3.) Tercero se ingresan en la matriz las Variables en la columna derecha
+y en la columna mas a la izquierda se incertan las producciones.
+NOTA : porfavor ingresar las producciones de las variables separadas por espacio, EJ :
+a Ab C == a|Ab|C
+
+4.) Ingresar la cadena de entrada que va a ser probrada EJ: aaaabbbb
+
+5.) Se ingresan de manera unica todas las producciones que posee la gramatica 
+separada por un espacio EJ : 
+
+S---> A
+A ---> a|Ab|C
+B --->  b
+C----> a|Ba|A|c
+
+Si se fuera a ingresar la siguiente gramatica al programa, en el area de ingresar terminales
+se ingresaria de la siguiente manera : 
+
+a b c 
+
+separada por espacios
+
+6.) por ultimo se oprime el boton probar cadena y el programa le dira si la cadena
+es producida o no por la gramatica
